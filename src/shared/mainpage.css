@@ -1,8 +1,126 @@
-body {
-    background-color: #000;
-    background-image: linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
-                      linear-gradient(to bottom, #8080800a 1px, transparent 1px);
-    background-size: 14px 24px;
-    font-family: 'Poppins', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+.main-page {
+  font-family: 'Outfit', sans-serif;
+  background: #111;
+  color: #f2f2f2;
+  padding-bottom: 80px;
+  overflow-x: hidden;
+}
+
+.section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #00e5ff;
+  text-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+}
+
+.how-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 30px;
+  flex: 1;
+  min-width: 260px;
+  max-width: 340px;
+  box-shadow: 10px 10px 20px #0a0a0a, -10px -10px 20px #1a1a1a;
+  transition: transform 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+}
+
+.step h3 {
+  font-size: 1.4rem;
+  color: #1de9b6;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.testimonials {
+  background: #1a1a1a;
+  border-radius: 24px;
+  box-shadow: inset 4px 4px 12px #0a0a0a, inset -4px -4px 12px #2a2a2a;
+}
+
+.testimonial-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.testimonial {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 25px;
+  border-radius: 16px;
+  max-width: 350px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.25);
+}
+
+.testimonial p {
+  font-style: italic;
+  color: #cfd8dc;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.testimonial h4 {
+  font-weight: 600;
+  color: #80deea;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
   }
-  
+
+  .step h3 {
+    font-size: 1.2rem;
+  }
+
+  .step p,
+  .testimonial p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .step,
+  .testimonial {
+    padding: 20px;
+  }
+
+  .testimonial h4 {
+    font-size: 0.95rem;
+  }
+}

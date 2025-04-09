@@ -1,34 +1,24 @@
-import React from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
-import Header from './shared/Header';
-import Footer from './shared/Footer';
-import MainPageHero from './shared/MainPageHero';
-import Aboutus from './aboutus/Aboutus';
-import SigninSignup from './signin.jsx/signin';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
+import MainPageHero from "./shared/MainPageHero";
+import Aboutus from "./aboutus/Aboutus";
+import Find from "./find/Find";
+import SigninSignup from "./signin/signin";
+import PostDetail from "./find/PostDetail"; // create this file if missing
+ import PostTution from "./find/PostTution";   // create this file if missing
 
-const Layout = ({ children }) => {
-  const location = useLocation();
-  const isSigninPage = location.pathname === '/signin';
-
+export default function App() {
   return (
-    <div className="page-container">
-      {!isSigninPage && <Header />}
-      <main className="main-content">{children}</main>
-      {!isSigninPage && <Footer />}
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<MainPageHero />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPageHero />} />
         <Route path="/about" element={<Aboutus />} />
-        <Route path="/signin" element={<SigninSignup />} />
-      </Routes>
-    </Layout>
+        <Route path="/find" element={<Find />} />
+        <Route path="/find/:id" element={<PostDetail />} />
+        <Route path="/find/chat" element={<PostTution/>} />
+      </Route>
+      <Route path="/signin" element={<SigninSignup />} />
+    </Routes>
   );
 }
-
-export default App;

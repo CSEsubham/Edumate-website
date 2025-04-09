@@ -64,6 +64,46 @@ export default function Aboutus() {
           opportunities that prepare them for a brighter future.
         </p>
       </div>
+
+      <div className="about-tech">
+        <h2>Technology Stack</h2>
+        <ul>
+          <li><strong>Frontend:</strong> React.js, Vite, React Router DOM, Framer Motion</li>
+          <li><strong>Styling:</strong> Advanced CSS (no Tailwind), Google Fonts, Glassmorphism, Neumorphism</li>
+          <li><strong>Authentication:</strong> Firebase Auth</li>
+          <li><strong>UI Libraries:</strong> React Icons, Lucide-react, SweetAlert2</li>
+          <li><strong>Real-time Features:</strong> Socket.io Client</li>
+        </ul>
+      </div>
+
+      <div className="about-dependencies">
+        <h2>Dependencies Used</h2>
+        <p>
+          In addition to the core tools, Edumate includes various dependencies to enhance user experience and performance:
+        </p>
+        <ul>
+          <li>Firebase for authentication and backend</li>
+          <li>Framer Motion for smooth animations</li>
+          <li>SweetAlert2 for beautiful popups</li>
+          <li>Socket.io-client for future real-time features</li>
+          <li>React Icons & Lucide for modern iconography</li>
+        </ul>
+      </div>
+
+      <div className="about-repo">
+        <h2>Project Source</h2>
+        <p>
+          You can explore and contribute to this project on GitHub:
+        </p>
+        <a
+          href="https://github.com/CSEsubham/Edumate-website"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="github-link"
+        >
+          🔗 github.com/CSEsubham/Edumate-website
+        </a>
+      </div>
     </section>
   );
 }

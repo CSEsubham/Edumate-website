@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --primary: #00bcd4;
+  --secondary: #1de9b6;
+  --text-dark: #222;
+  --text-light: #666;
+  --bg-light: #f9f9f9;
+  --glass: rgba(255, 255, 255, 0.5);
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.find-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form Card */
+.form-card {
+  max-width: 800px;
+  margin: auto;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-4px);
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.form-card input,
+.form-card textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: #ffffff;
+  box-shadow: inset 4px 4px 8px #dcdcdc, inset -4px -4px 8px #ffffff;
+  transition: all 0.3s ease;
+}
+
+.form-card input:focus,
+.form-card textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+/* Button */
+.form-card button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-card button:hover {
+  background: var(--primary);
+  transform: scale(1.03);
+}
+
+/* Search */
+.search-bar {
+  max-width: 600px;
+  margin: auto;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 16px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: inset 2px 2px 6px #ddd, inset -2px -2px 6px #fff;
+  background: white;
+  transition: all 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Post Cards */
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.post-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.12);
+}
+
+.post-card h3 {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.post-card p {
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+/* Post Actions */
+.post-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.post-actions button {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.post-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.post-actions button:first-child {
+  background: var(--primary);
+  color: white;
+}
+
+.post-actions .delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+.post-actions .delete-btn:hover {
+  background: #d32f2f;
+}
+
+/* No Posts */
+.no-posts {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 2rem;
+}
+
+/* SweetAlert2 Toast */
+.animated-toast {
+  animation: slideToast 0.4s ease forwards;
+}
+
+@keyframes slideToast {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-card,
+  .post-card {
+    padding: 1.2rem;
+  }
+
+  .form-card h2 {
+    font-size: 1.4rem;
+  }
+
+  .post-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+  }
+}
