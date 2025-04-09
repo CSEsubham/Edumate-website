@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  color-scheme: dark;
+  --dark-bg: #1a1a1a;
+  --shadow-light: #2e2e2e;
+  --shadow-dark: #101010;
+  --accent: #00bcd4;
+  --accent-hover: #0097a7;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: white;
+}
+
+.linkerTag {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--dark-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  margin: 20px;
+  border-radius: 20px;
+  color: white;
+
+  /* Neumorphism box shadow */
+  box-shadow: 
+    10px 10px 20px var(--shadow-dark),
+    -10px -10px 20px var(--shadow-light);
+}
+
+.brand-name {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #00bcd4, #1de9b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.brand-name:hover {
+  transform: scale(1.05);
+  text-shadow: 0 4px 20px rgba(0, 188, 212, 0.5);
+}
+
+.header nav ul {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s;
+
+  /* Neumorphic inset */
+  box-shadow: 
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light);
+}
+
+.header nav a:hover {
+  color: var(--accent);
+  background-color: #222;
+}
+
+.header nav a.active {
+  background-color: var(--accent);
+  color: black;
+  box-shadow:
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light);
+}
+
+
+.signup-btn {
+  background-color: var(--dark-bg);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-weight: 600;
+  text-decoration: none;
+
+  /* Raised Neumorphic effect */
+  box-shadow: 
+    6px 6px 12px var(--shadow-dark),
+    -6px -6px 12px var(--shadow-light);
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-btn:hover {
+  background-color: var(--accent);
+  color: black;
+
+  /* Reverse neumorphism */
+  box-shadow: 
+    inset 4px 4px 10px var(--shadow-dark),
+    inset -4px -4px 10px var(--shadow-light);
+}
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #1a1a1a;
+  padding: 40px 0;
+  box-shadow: 8px 8px 16px #121212, -8px -8px 16px #2a2a2a;
+  color: white;
+  border-radius: 24px 24px 0 0;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #00bcd4, #1de9b6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.footer-icons a {
+  color: #ddd;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.footer-icons a:hover {
+  transform: scale(1.2);
+  color: #00bcd4;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: #999;
+}
+.hero-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  color: white;
+  background: #0e0e0e;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.hero-title span {
+  background: linear-gradient(to right, #22d3ee, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  color: #ccc;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.neumorphic-btn {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    inset 4px 4px 10px rgba(255, 255, 255, 0.15),
+    inset -4px -4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.neumorphic-btn.primary {
+  background: #22d3ee;
+  color: black;
+}
+
+.neumorphic-btn.primary:hover {
+  background: #0dd7e6;
+}
+
+.neumorphic-btn.secondary {
+  background: #1c1c1c;
+  color: white;
+}
+
+.neumorphic-btn.secondary:hover {
+  background: #2e2e2e;
+}
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .header nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+}
+.input-field {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: var(--dark-bg);
+  color: white;
+  border: none;
+  box-shadow: 
+    inset 4px 4px 10px var(--shadow-dark),
+    inset -4px -4px 10px var(--shadow-light);
+  transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+  outline: none;
+  box-shadow:
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light),
+    0 0 0 2px var(--accent);
+}
