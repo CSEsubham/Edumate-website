@@ -225,3 +225,14 @@ body {
     flex-direction: column;
   }
 }
+.post-meta{
+  color: #222 !important;
+}
+.title-aaa{
+  color: #000 !important;
+}
+.join-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #555;
+}

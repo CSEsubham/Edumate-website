@@ -1,83 +1,131 @@
-// src/find/Discuss.jsx
-import React, { useEffect, useRef, useState } from "react";
+// src/pages/Discuss.jsx
+import React, { useState, useEffect, useContext } from "react";
+import { db } from "../firebase/firebase";
 import {
   collection,
   addDoc,
-  serverTimestamp,
+  onSnapshot,
+  Timestamp,
   query,
   orderBy,
-  onSnapshot,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
-import { db, auth } from "../firebase/firebase";
+import { AuthContext } from "../firebase/AuthContext";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
+import ReactMarkdown from "react-markdown";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import docco from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
 import "./discuss.css";
 
-export default function Discuss() {
-  const [messages, setMessages] = useState([]);
-  const [msg, setMsg] = useState("");
-  const bottomRef = useRef();
+SyntaxHighlighter.registerLanguage("javascript", js);
 
-  const fetchMessages = () => {
-    const q = query(collection(db, "discussion"), orderBy("timestamp"));
-    onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setMessages(data);
+export default function Discuss() {
+  const { user } = useContext(AuthContext);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+  useEffect(() => {
+    const q = query(collection(db, "discussionMessages"), orderBy("timestamp", "asc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const msgs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(msgs);
     });
-  };
+
+    return () => unsubscribe();
+  }, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
-    const user = auth.currentUser;
-    if (!user || !msg.trim()) return;
-
-    try {
-      await addDoc(collection(db, "discussion"), {
-        text: msg,
-        sender: user.displayName || user.email,
-        uid: user.uid,
-        timestamp: serverTimestamp(),
-      });
-      setMsg("");
-    } catch (err) {
-      Swal.fire("Error", "Message not sent!", "error");
+    if (input.trim() === "") {
+      Swal.fire("Empty!", "Please enter a message", "warning");
+      return;
     }
+
+    await addDoc(collection(db, "discussionMessages"), {
+      text: input,
+      uid: user.uid,
+      name: user.displayName,
+      timestamp: Timestamp.now(),
+      reactions: { like: 0, laugh: 0, fire: 0 },
+    });
+
+    setInput("");
   };
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  const handleReact = async (id, type) => {
+    const messageRef = doc(db, "discussionMessages", id);
+    const message = messages.find((msg) => msg.id === id);
+    const updatedReactions = {
+      ...message.reactions,
+      [type]: message.reactions[type] + 1,
+    };
+    await updateDoc(messageRef, { reactions: updatedReactions });
+  };
 
   return (
-    <div className="chatroom-container">
-      <h2 className="chatroom-title">💬 Discussion Room</h2>
-
-      <div className="messages-container">
-        {messages.map((m) => (
+    <div className="discuss-container">
+      <h2>💬 Discussion Room</h2>
+      <div className="messages-box">
+        {messages.map((msg) => (
           <motion.div
-            key={m.id}
-            className={`message ${m.uid === auth.currentUser?.uid ? "sent" : "received"}`}
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
+            key={msg.id}
+            className={`message ${msg.uid === user.uid ? "own" : ""}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
           >
-            <p className="sender">{m.sender}</p>
-            <p>{m.text}</p>
+            <div className="msg-header">
+              <strong>{msg.name}</strong>
+              <span className="timestamp">
+                {msg.timestamp?.toDate().toLocaleTimeString()}
+              </span>
+            </div>
+
+            <div className="msg-body">
+              <ReactMarkdown
+                children={msg.text}
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+                    return !inline ? (
+                      <SyntaxHighlighter
+                        style={docco}
+                        language="javascript"
+                        PreTag="div"
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, "")}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              />
+            </div>
+
+            <div className="reactions">
+              <button onClick={() => handleReact(msg.id, "like")}>❤️ {msg.reactions?.like || 0}</button>
+              <button onClick={() => handleReact(msg.id, "laugh")}>😂 {msg.reactions?.laugh || 0}</button>
+              <button onClick={() => handleReact(msg.id, "fire")}>🔥 {msg.reactions?.fire || 0}</button>
+            </div>
           </motion.div>
         ))}
-        <div ref={bottomRef}></div>
       </div>
 
-      <form className="input-form" onSubmit={handleSend}>
-        <input
-          type="text"
-          placeholder="Type a message..."
-          value={msg}
-          onChange={(e) => setMsg(e.target.value)}
+      <form onSubmit={handleSend} className="message-form">
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your message... Use markdown or paste code!"
+          rows={3}
         />
         <button type="submit">Send</button>
       </form>
